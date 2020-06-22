@@ -7,6 +7,8 @@ import ExercisesList from './components/exercise-list.component';
 import EditExercise from './components/edit-exercise.component';
 import CreateExercise from './components/create-exercise.component';
 import CreateUser from './components/create-user.component';
+import CreateTicket from './components/create-ticket.component';
+import WaitingInterviewer from './components/waitingInterviewer.component';
 
 
 
@@ -27,7 +29,9 @@ function App() {
         <Route path="/" exact component={ExercisesList}/>
         <Route path="/edit/:id" component={EditExercise} />
         <Route path="/create" component={CreateExercise}/>
+        <Route path="/createTicket" component={CreateTicket}></Route>
         <Route path="/user" component={CreateUser} />
+        <Route path="/waiting/:id" component={WaitingInterviewer}></Route>
       </div>
     </Router>
   );
