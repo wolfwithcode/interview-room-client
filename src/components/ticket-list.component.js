@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 
@@ -48,10 +47,19 @@ export default class TicketList extends Component {
 
     processTicket(id){
         // console.log("process ticket ", `http:localhost:5000/tickets/${id}`)
-        const url = 'http://localhost:5000/tickets/'+id;
-        console.log('url ', url);
-        axios.delete(url)
-            .then(res => console.log(res.data));
+        const urlRequestDeleteTicket = 'http://localhost:5000/tickets/'+id;
+        const urlRequestNewInterviewSession = 'http://localhost:5000/interviewSessions/add';
+        console.log('url ', urlRequestDeleteTicket);
+        console.log('url ', urlRequestNewInterviewSession);
+        const ticketInfo = { ticketId: id};
+        axios.post(urlRequestNewInterviewSession, ticketInfo)
+            .then( () => {
+                axios.delete(urlRequestDeleteTicket)
+                    .then(res => console.log(res.data))
+                    .catch(err => console.log('delete ticket failed ', err));
+            })
+            .catch(err => console.log('Request new interview session failed', err));
+        
         this.setState({
             tickets: this.state.tickets.filter(ticket => ticket._id !== id)
         });
