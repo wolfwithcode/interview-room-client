@@ -8,7 +8,7 @@ import EditExercise from './components/edit-exercise.component';
 import CreateExercise from './components/create-exercise.component';
 import CreateUser from './components/create-user.component';
 import CreateTicket from './components/create-ticket.component';
-import WaitingInterviewer from './components/waitingInterviewer.component';
+import WaitingInterviewer from './components/waiting-Interviewer.component';
 import TicketList from './components/ticket-list.component';
 
 
