@@ -18,6 +18,9 @@ const Ticket = props => (
         <td>{props.ticket.skypeId}</td>
         <td>Open</td>
         <td>{calWaitingMinute(props.ticket.timeIn)}</td>
+        <td>
+            <a href="skype:live:.cid.638a6d3ee509bd04" onClick= {() => { props.processTicket(props.ticket._id) }} >Call</a>
+        </td>
     </tr>
 )
 
@@ -26,6 +29,8 @@ export default class TicketList extends Component {
     constructor(props){
 
         super(props);
+
+        this.processTicket = this.processTicket.bind(this);
 
         this.state = {tickets: []};
 
@@ -41,11 +46,23 @@ export default class TicketList extends Component {
             })
     }
 
+    processTicket(id){
+        // console.log("process ticket ", `http:localhost:5000/tickets/${id}`)
+        const url = 'http://localhost:5000/tickets/'+id;
+        console.log('url ', url);
+        axios.delete(url)
+            .then(res => console.log(res.data));
+        this.setState({
+            tickets: this.state.tickets.filter(ticket => ticket._id !== id)
+        });
+    }
+
     ticketList(){
         return this.state.tickets.map(currentTicket => {
             return <Ticket
                         ticket={currentTicket}
                         key={currentTicket._id}
+                        processTicket={this.processTicket}
                     />;
         })
     }
@@ -61,6 +78,7 @@ export default class TicketList extends Component {
                             <th>Skype Id</th>
                             <th>Status</th>
                             <th>Waiting minute</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
