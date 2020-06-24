@@ -36,7 +36,7 @@ export default class TicketList extends Component {
     }
 
     componentDidMount(){
-        axios.get('http://localhost:5000/tickets')
+        axios.get('http://localhost:5000/tickets/today')
             .then(response => {
                 this.setState({tickets: response.data})                
             })
